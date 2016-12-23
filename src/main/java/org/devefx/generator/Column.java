@@ -6,7 +6,7 @@ public class Column {
 	
 	private String formatName;
 	
-	private String jdbcType;
+	private int jdbcType;
 	
 	private String javaType;
 	
@@ -30,11 +30,11 @@ public class Column {
 		this.formatName = formatName;
 	}
 	
-	public String getJdbcType() {
+	public int getJdbcType() {
 		return jdbcType;
 	}
 
-	public void setJdbcType(String jdbcType) {
+	public void setJdbcType(int jdbcType) {
 		this.jdbcType = jdbcType;
 	}
 	

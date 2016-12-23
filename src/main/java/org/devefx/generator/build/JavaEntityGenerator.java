@@ -5,7 +5,7 @@ import java.util.Properties;
 import org.devefx.generator.NamedMapping;
 import org.devefx.generator.core.Generator;
 import org.devefx.generator.core.JdbcConfig;
-import org.devefx.generator.executor.MysqlExecutor;
+import org.devefx.generator.core.StandardSqlExecutor;
 import org.devefx.generator.named.RegexpCaseNamedMapping;
 import org.devefx.generator.named.UnderscoreToCamelCaseNamedMapping;
 import org.devefx.generator.template.JavaEntityTemplate;
@@ -23,7 +23,7 @@ public class JavaEntityGenerator {
 		Generator gen = new Generator();
 		gen.setJdbcConfig(config);
 		// 设置sql执行器
-		gen.setSqlExecutor(new MysqlExecutor());
+		gen.setSqlExecutor(new StandardSqlExecutor());
 		// 添加一个java实体类生成模板
 		JavaEntityTemplate javaEntityTemplate = new JavaEntityTemplate();
 		javaEntityTemplate.setOutDir("F:/Workspaces/20160920/generator/src/test/java/org/devefx/model");

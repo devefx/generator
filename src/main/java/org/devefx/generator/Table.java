@@ -7,6 +7,8 @@ public class Table {
 
 	private String name;
 	
+	private String comment;
+	
 	private String formatName;
 
 	private List<Column> columns;
@@ -24,6 +26,14 @@ public class Table {
 	
 	public String getName() {
 		return name;
+	}
+	
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
+	
+	public String getComment() {
+		return comment;
 	}
 	
 	public void setColumns(List<Column> columns) {

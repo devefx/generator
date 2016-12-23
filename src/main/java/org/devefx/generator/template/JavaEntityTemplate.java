@@ -1,5 +1,6 @@
 package org.devefx.generator.template;
 
+import java.sql.Types;
 import java.text.MessageFormat;
 import java.util.HashSet;
 import java.util.List;
@@ -40,31 +41,35 @@ public class JavaEntityTemplate extends AbstractTemplate<JavaType> {
 	}
 	
 	public JavaEntityTemplate() {
-		jdbcTypeMapper.put("tinyint", new JavaType("byte"));
-		jdbcTypeMapper.put("smallint", new JavaType("short"));
-		jdbcTypeMapper.put("mediumint", new JavaType("int"));
-		jdbcTypeMapper.put("int", new JavaType("int"));
-		jdbcTypeMapper.put("bigint", new JavaType("long"));
-		jdbcTypeMapper.put("float", new JavaType("float"));
-		jdbcTypeMapper.put("double", new JavaType("double"));
-		jdbcTypeMapper.put("decimal", new JavaType("java.math.BigDecimal", "BigDecimal"));
+		jdbcTypeMapper.put(Types.BIT, new JavaType("boolean"));
+		jdbcTypeMapper.put(Types.TINYINT, new JavaType("byte"));
+		jdbcTypeMapper.put(Types.SMALLINT, new JavaType("short"));
+		jdbcTypeMapper.put(Types.INTEGER, new JavaType("int"));
+		jdbcTypeMapper.put(Types.BIGINT, new JavaType("long"));
+		jdbcTypeMapper.put(Types.FLOAT, new JavaType("float"));
+		jdbcTypeMapper.put(Types.REAL, new JavaType("float"));
+		jdbcTypeMapper.put(Types.DOUBLE, new JavaType("double"));
+		jdbcTypeMapper.put(Types.NUMERIC, new JavaType("java.math.BigDecimal", "BigDecimal"));
+		jdbcTypeMapper.put(Types.DECIMAL, new JavaType("java.math.BigDecimal", "BigDecimal"));
 		
-		jdbcTypeMapper.put("char", new JavaType("String"));
-		jdbcTypeMapper.put("varchar", new JavaType("String"));
-		jdbcTypeMapper.put("tinyblob", new JavaType("String"));
-		jdbcTypeMapper.put("blob", new JavaType("String"));
-		jdbcTypeMapper.put("mediumblob", new JavaType("String"));
-		jdbcTypeMapper.put("longblob", new JavaType("String"));
-		jdbcTypeMapper.put("tinytext", new JavaType("String"));
-		jdbcTypeMapper.put("text", new JavaType("String"));
-		jdbcTypeMapper.put("mediumtext", new JavaType("String"));
-		jdbcTypeMapper.put("longtext", new JavaType("String"));
+		jdbcTypeMapper.put(Types.CHAR, new JavaType("String"));
+		jdbcTypeMapper.put(Types.VARCHAR, new JavaType("String"));
+		jdbcTypeMapper.put(Types.LONGVARCHAR, new JavaType("String"));
 		
-		jdbcTypeMapper.put("date", new JavaType("java.util.Date", "Date"));
-		jdbcTypeMapper.put("time", new JavaType("java.util.Date", "Date"));
-		jdbcTypeMapper.put("datetime", new JavaType("java.util.Date", "Date"));
-		jdbcTypeMapper.put("timestamp", new JavaType("java.util.Date", "Date"));
-		jdbcTypeMapper.put("year", new JavaType("java.util.Date", "Date"));
+		jdbcTypeMapper.put(Types.DATE, new JavaType("java.sql.Date", "Date"));
+		jdbcTypeMapper.put(Types.TIME, new JavaType("java.sql.Time", "Time"));
+		jdbcTypeMapper.put(Types.TIMESTAMP, new JavaType("java.sql.Timestamp", "Timestamp"));
+		jdbcTypeMapper.put(Types.BINARY, new JavaType("byte[]"));
+		jdbcTypeMapper.put(Types.VARBINARY, new JavaType("byte[]"));
+		jdbcTypeMapper.put(Types.LONGVARBINARY, new JavaType("byte[]"));
+		
+		jdbcTypeMapper.put(Types.STRUCT, new JavaType("java.sql.Struct", "Struct"));
+		jdbcTypeMapper.put(Types.ARRAY, new JavaType("java.sql.Array", "Array"));
+		jdbcTypeMapper.put(Types.BLOB, new JavaType("java.sql.Blob", "Blob"));
+		jdbcTypeMapper.put(Types.CLOB, new JavaType("java.sql.Clob", "Clob"));
+		jdbcTypeMapper.put(Types.REF, new JavaType("java.sql.Ref", "Ref"));
+		jdbcTypeMapper.put(Types.BOOLEAN, new JavaType("Boolean"));
+		jdbcTypeMapper.put(Types.ROWID, new JavaType("java.sql.RowId", "RowId"));
 	}
 	
 }

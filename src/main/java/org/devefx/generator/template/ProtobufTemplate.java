@@ -1,5 +1,6 @@
 package org.devefx.generator.template;
 
+import java.sql.Types;
 import java.util.List;
 import java.util.Map;
 
@@ -24,31 +25,27 @@ public class ProtobufTemplate extends AbstractTemplate<String> {
 	}
 	
 	public ProtobufTemplate() {
-		jdbcTypeMapper.put("tinyint", "int32");
-		jdbcTypeMapper.put("smallint", "int32");
-		jdbcTypeMapper.put("mediumint", "int32");
-		jdbcTypeMapper.put("int", "int32");
-		jdbcTypeMapper.put("bigint", "int64");
-		jdbcTypeMapper.put("float", "float");
-		jdbcTypeMapper.put("double", "double");
-		jdbcTypeMapper.put("decimal", "double");
+		jdbcTypeMapper.put(Types.BIT, "int32");
+		jdbcTypeMapper.put(Types.TINYINT, "int32");
+		jdbcTypeMapper.put(Types.SMALLINT, "int32");
+		jdbcTypeMapper.put(Types.INTEGER, "int32");
+		jdbcTypeMapper.put(Types.BIGINT, "int64");
+		jdbcTypeMapper.put(Types.FLOAT, "float");
+		jdbcTypeMapper.put(Types.REAL, "float");
+		jdbcTypeMapper.put(Types.DOUBLE, "double");
+		jdbcTypeMapper.put(Types.NUMERIC, "double");
+		jdbcTypeMapper.put(Types.DECIMAL, "double");
 		
-		jdbcTypeMapper.put("char", "string");
-		jdbcTypeMapper.put("varchar", "string");
-		jdbcTypeMapper.put("tinyblob", "string");
-		jdbcTypeMapper.put("blob", "string");
-		jdbcTypeMapper.put("mediumblob", "string");
-		jdbcTypeMapper.put("longblob", "string");
-		jdbcTypeMapper.put("tinytext", "string");
-		jdbcTypeMapper.put("text", "string");
-		jdbcTypeMapper.put("mediumtext", "string");
-		jdbcTypeMapper.put("longtext", "string");
+		jdbcTypeMapper.put(Types.CHAR, "string");
+		jdbcTypeMapper.put(Types.VARCHAR, "string");
+		jdbcTypeMapper.put(Types.LONGVARCHAR, "string");
 		
-		jdbcTypeMapper.put("date", "string");
-		jdbcTypeMapper.put("time", "string");
-		jdbcTypeMapper.put("datetime", "string");
-		jdbcTypeMapper.put("timestamp", "string");
-		jdbcTypeMapper.put("year", "string");
+		jdbcTypeMapper.put(Types.DATE, "string");
+		jdbcTypeMapper.put(Types.TIME, "string");
+		jdbcTypeMapper.put(Types.TIMESTAMP, "string");
+		jdbcTypeMapper.put(Types.BINARY, "bytes");
+		jdbcTypeMapper.put(Types.VARBINARY, "bytes");
+		jdbcTypeMapper.put(Types.LONGVARBINARY, "bytes");
 	}
 
 }

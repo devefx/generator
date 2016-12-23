@@ -8,7 +8,7 @@ import org.devefx.generator.Template;
 
 public abstract class AbstractTemplate<T> implements Template {
 
-	protected final Map<String, T> jdbcTypeMapper = new HashMap<String, T>();
+	protected final Map<Integer, T> jdbcTypeMapper = new HashMap<Integer, T>();
 	
 	protected String dir;
 	
