@@ -26,6 +26,27 @@ public class FreeMarkerKit {
 
 	private static final String UTF_8 = "UTF-8";
 	
+	public static void generate(Writer writer, String ftlName, Map<Object, Object> dataModel) {
+		// 添加模板方法
+		addTemplateMethod(dataModel);
+		// 创建目录
+		ClassLoader loader = FreeMarkerKit.class.getClassLoader();
+		String root = loader.getResource("").getPath();
+		// 生成
+		Configuration configuration = new Configuration();
+		configuration.setDefaultEncoding(UTF_8);
+		try {
+			configuration.setDirectoryForTemplateLoading(new File(root));
+			Template template = configuration.getTemplate(ftlName, UTF_8);
+			template.process(dataModel, writer);
+			writer.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (TemplateException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	/**
 	 * 根据模板输出文件
 	 * @param path
@@ -34,11 +55,6 @@ public class FreeMarkerKit {
 	 * @return
 	 */
 	public static boolean generate(String path, String ftlName, Map<Object, Object> dataModel) {
-		// 添加模板方法
-		addTemplateMethod(dataModel);
-		// 创建目录
-		ClassLoader loader = FreeMarkerKit.class.getClassLoader();
-		String root = loader.getResource("").getPath();
 		// 解析目录和文件名
 		int index = path.lastIndexOf("/");
 		String directory = path.substring(0, index);
@@ -48,21 +64,13 @@ public class FreeMarkerKit {
 		if (!file.exists()) {
 			file.mkdirs();
 		}
-		// 生成
-		Configuration configuration = new Configuration();
-		configuration.setDefaultEncoding(UTF_8);
 		try {
-			configuration.setDirectoryForTemplateLoading(new File(root));
+			// 创建文件输出流
 			OutputStream outputStream = new FileOutputStream(file.getPath() + File.separator + filename);
 			Writer writer = new BufferedWriter(new OutputStreamWriter(outputStream, UTF_8));
-			Template template = configuration.getTemplate(ftlName, UTF_8);
-			template.process(dataModel, writer);
-			writer.flush();
+			generate(writer, ftlName, dataModel);
 			writer.close();
 		} catch (IOException e) {
-			e.printStackTrace();
-			return false;
-		} catch (TemplateException e) {
 			e.printStackTrace();
 			return false;
 		}

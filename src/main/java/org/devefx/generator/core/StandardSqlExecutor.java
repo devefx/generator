@@ -5,7 +5,6 @@ import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -42,10 +41,8 @@ public class StandardSqlExecutor implements SqlExecutor {
 		List<Table> tables = new ArrayList<Table>();
 		DatabaseMetaData databaseMetaData = connection.getMetaData();
 		ResultSet resultSet = null;
-		Statement statement = null;
 		try {
 			resultSet = databaseMetaData.getTables(connection.getCatalog(), "ROOT", null, new String[] { "TABLE" });
-			statement = connection.createStatement();
 			while (resultSet.next()) {
 				String name = resultSet.getString("TABLE_NAME");
 				String comment = resultSet.getString("REMARKS");
@@ -62,9 +59,6 @@ public class StandardSqlExecutor implements SqlExecutor {
 		} finally {
 			if (resultSet != null) {
 				resultSet.close();
-			}
-			if (statement != null) {
-				statement.close();
 			}
 		}
 		return tables;
@@ -100,6 +94,8 @@ public class StandardSqlExecutor implements SqlExecutor {
 					column.setFormatName(name);
 					column.setComment(resultSet.getString("REMARKS"));
 					column.setJdbcType(resultSet.getInt("DATA_TYPE"));
+					column.setPrecision(resultSet.getInt("COLUMN_SIZE"));
+					column.setScale(resultSet.getInt("DECIMAL_DIGITS"));
 					table.addColumn(column);
 				}
 			}

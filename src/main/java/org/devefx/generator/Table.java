@@ -13,6 +13,8 @@ public class Table {
 
 	private List<Column> columns;
 	
+	private Object object;
+	
 	public Table() {
 	}
 	
@@ -57,6 +59,14 @@ public class Table {
 	
 	public String getFormatName() {
 		return formatName;
+	}
+	
+	public void setObject(Object object) {
+		this.object = object;
+	}
+	
+	public Object getObject() {
+		return object;
 	}
 	
 }

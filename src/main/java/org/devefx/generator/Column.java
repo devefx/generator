@@ -13,6 +13,10 @@ public class Column {
 	private String comment;
 	
 	private boolean isKey;
+	
+	private int precision;
+	
+	private int scale;
 
 	public String getName() {
 		return name;
@@ -61,4 +65,21 @@ public class Column {
 	public void setKey(boolean isKey) {
 		this.isKey = isKey;
 	}
+
+	public int getPrecision() {
+		return precision;
+	}
+
+	public void setPrecision(int precision) {
+		this.precision = precision;
+	}
+
+	public int getScale() {
+		return scale;
+	}
+
+	public void setScale(int scale) {
+		this.scale = scale;
+	}
+	
 }
