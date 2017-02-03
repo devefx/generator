@@ -27,7 +27,6 @@ public class SqliteConvertorTemplate extends AbstractTemplate<String> {
 		this.querySqlExecutor = querySqlExecutor;
 	}
 	
-	@Override
 	public void run(List<Table> tables, Map<Object, Object> modelMap) {
 		for (Table table : tables) {
 			for (Column column : table.getColumns()) {

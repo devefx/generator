@@ -18,7 +18,6 @@ public class JavaEntityTemplate extends AbstractTemplate<JavaType> {
 	private static final String TABLE = "table";
 	private static final String IMPORTS = "imports";
 	
-	@Override
 	public void run(List<Table> tables, Map<Object, Object> modelMap) {
 		for (Table table : tables) {
 			modelMap.put(TABLE, table);

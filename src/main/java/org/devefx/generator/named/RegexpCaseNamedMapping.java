@@ -10,10 +10,17 @@ public class RegexpCaseNamedMapping implements NamedMapping {
 	private Pattern pattern;
 	
 	private String replacement;
-	
+
+	private boolean isCamelCase;
+
 	public RegexpCaseNamedMapping(String regex, String replacement) {
+		this(regex, replacement, true);
+	}
+
+	public RegexpCaseNamedMapping(String regex, String replacement, boolean isCamelCase) {
 		this.pattern = Pattern.compile(regex);
 		this.replacement = replacement;
+		this.isCamelCase = isCamelCase;
 	}
 	
 	@Override
@@ -30,7 +37,13 @@ public class RegexpCaseNamedMapping implements NamedMapping {
 		Matcher matcher = pattern.matcher(input);
 		StringBuffer buffer = new StringBuffer();
 		while (matcher.find()) {
-			matcher.appendReplacement(buffer, matcher.group(1).toUpperCase());
+			String name = matcher.group(1);
+			if (isCamelCase) {
+				name = name.toUpperCase();
+			} else {
+				name = "_" + name;
+			}
+			matcher.appendReplacement(buffer, name);
 		}
 		matcher.appendTail(buffer);
 		return buffer.toString();

@@ -12,7 +12,6 @@ public abstract class AbstractTemplate<T> implements Template {
 	
 	protected String dir;
 	
-	@Override
 	public void setOutDir(String dir) {
 		this.dir = dir;
 	}

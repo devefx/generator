@@ -13,7 +13,6 @@ public class ProtobufTemplate extends AbstractTemplate<String> {
 	private static final String FTL_PATH = "template/protobuf/proto.ftl";
 	private static final String TABLES = "tables";
 	
-	@Override
 	public void run(List<Table> tables, Map<Object, Object> modelMap) {
 		for (Table table : tables) {
 			for (Column column : table.getColumns()) {

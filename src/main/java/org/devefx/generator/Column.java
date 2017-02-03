@@ -9,7 +9,7 @@ public class Column {
 	private int jdbcType;
 	
 	private String javaType;
-	
+
 	private String comment;
 	
 	private boolean isKey;
@@ -17,6 +17,8 @@ public class Column {
 	private int precision;
 	
 	private int scale;
+
+	private String tag;
 
 	public String getName() {
 		return name;
@@ -81,5 +83,12 @@ public class Column {
 	public void setScale(int scale) {
 		this.scale = scale;
 	}
-	
+
+	public String getTag() {
+		return tag;
+	}
+
+	public void setTag(String tag) {
+		this.tag = tag;
+	}
 }

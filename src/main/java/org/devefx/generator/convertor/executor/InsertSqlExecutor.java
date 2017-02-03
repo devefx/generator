@@ -21,7 +21,7 @@ public class InsertSqlExecutor extends StandardSqlExecutor {
 	}
 	
 	public void insertSQL(Table table) throws SQLException {
-		List<String> result = new ArrayList<>();
+		List<String> result = new ArrayList<String>();
 		Statement statement = null;
 		ResultSet rs = null;
 		try {

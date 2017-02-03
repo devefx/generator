@@ -40,7 +40,7 @@ public class Generator {
 
 	public void addTemplate(Template template) {
 		if (templates == null) {
-			templates = new HashSet<>();
+			templates = new HashSet<Template>();
 		}
 		templates.add(template);
 	}
