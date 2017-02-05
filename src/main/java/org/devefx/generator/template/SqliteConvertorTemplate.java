@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Types;
 import java.text.MessageFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -28,6 +29,8 @@ public class SqliteConvertorTemplate extends AbstractTemplate<String> {
 	}
 	
 	public void run(List<Table> tables, Map<Object, Object> modelMap) {
+		modelMap.put(DATETIME, dateFormat.format(new Date()));
+		
 		for (Table table : tables) {
 			for (Column column : table.getColumns()) {
 				String type = MessageFormat.format(typeMap(column), column.getPrecision(),

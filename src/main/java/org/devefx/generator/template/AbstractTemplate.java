@@ -1,5 +1,6 @@
 package org.devefx.generator.template;
 
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -8,6 +9,10 @@ import org.devefx.generator.Template;
 
 public abstract class AbstractTemplate<T> implements Template {
 
+	protected static final String DATETIME = "datetime";
+	
+	protected static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	
 	protected final Map<Integer, T> jdbcTypeMapper = new HashMap<Integer, T>();
 	
 	protected String dir;

@@ -25,6 +25,7 @@ public class Generator {
 	private ColumnFilter columnFilter;
 	private NamedMapping tableNamedMapping;
 	private NamedMapping columnNamedMapping;
+	private NamedMapping fileNamedMapping;
 
 	public void setEnv(Properties properties) {
 		this.envProps = properties;
@@ -61,6 +62,10 @@ public class Generator {
 		this.columnNamedMapping = namedMapping;
 	}
 
+	public void setFileNamedMapping(NamedMapping fileNamedMapping) {
+		this.fileNamedMapping = fileNamedMapping;
+	}
+	
 	public void run() throws Exception {
 		if (templates == null || templates.isEmpty() ||
 				sqlExecutor == null || jdbcConfig == null) {
@@ -81,6 +86,12 @@ public class Generator {
 				
 				for (Table table : tables) {
 					sqlExecutor.findColumns(table, columnFilter, columnNamedMapping);
+					
+					String name = table.getFormatName();
+					if (fileNamedMapping != null) {
+						name = fileNamedMapping.mapping(table.getName());
+					}
+					table.setFileName(name);
 				}
 				
 				for (Template template : templates) {

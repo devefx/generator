@@ -16,7 +16,7 @@ public class JavaEntityGenerator {
 	public static void main(String[] args) throws Exception {
 		// jdbc连接配置
 		JdbcConfig config = new JdbcConfig();
-		config.setUrl("jdbc:mysql://localhost:3306/myth");
+		config.setUrl("jdbc:mysql://localhost:3306/myth-db");
 		config.setUsername("root");
 		config.setPassword("sql8092");
 		// 创建一个生成器

@@ -61,7 +61,57 @@ public class StandardSqlExecutor implements SqlExecutor {
 				resultSet.close();
 			}
 		}
+		processForeign(tables);
+		processReference(tables);
 		return tables;
+	}
+	
+	protected void processForeign(List<Table> tables) throws SQLException {
+		DatabaseMetaData databaseMetaData = connection.getMetaData();
+		for (Table table : tables) {
+			ResultSet resultSet = null;
+			try {
+				resultSet = databaseMetaData.getExportedKeys(connection.getCatalog(),
+						null, table.getName());
+				while (resultSet.next()) {
+					String name = resultSet.getString("FKTABLE_NAME");
+					for (Table tab : tables) {
+						if (name.equals(tab.getName())) {
+							table.addForeignTable(tab);
+							break;
+						}
+					}
+				}
+			} finally {
+				if (resultSet != null) {
+					resultSet.close();
+				}
+			}
+		}
+	}
+	
+	protected void processReference(List<Table> tables) throws SQLException {
+		DatabaseMetaData databaseMetaData = connection.getMetaData();
+		for (Table table : tables) {
+			ResultSet resultSet = null;
+			try {
+				resultSet = databaseMetaData.getImportedKeys(connection.getCatalog(),
+						null, table.getName());
+				while (resultSet.next()) {
+					String name = resultSet.getString("PKTABLE_NAME");
+					for (Table tab : tables) {
+						if (name.equals(tab.getName())) {
+							table.addReferenceTable(tab);
+							break;
+						}
+					}
+				}
+			} finally {
+				if (resultSet != null) {
+					resultSet.close();
+				}
+			}
+		}
 	}
 	
 	@Override

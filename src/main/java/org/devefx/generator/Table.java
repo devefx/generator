@@ -13,6 +13,12 @@ public class Table {
 
 	private List<Column> columns;
 	
+	private List<Table> referenceTables;
+	
+	private List<Table> foreignTables;
+	
+	private String fileName;
+	
 	private Object object;
 	
 	public Table() {
@@ -53,12 +59,50 @@ public class Table {
 		columns.add(column);
 	}
 	
+	public List<Table> getReferenceTables() {
+		return referenceTables;
+	}
+	
+	public void setReferenceTables(List<Table> referenceTables) {
+		this.referenceTables = referenceTables;
+	}
+	
+	public void addReferenceTable(Table table) {
+		if (referenceTables == null) {
+			referenceTables = new ArrayList<Table>();
+		}
+		referenceTables.add(table);
+	}
+	
+	public List<Table> getForeignTables() {
+		return foreignTables;
+	}
+
+	public void setForeignTables(List<Table> foreignTables) {
+		this.foreignTables = foreignTables;
+	}
+	
+	public void addForeignTable(Table table) {
+		if (foreignTables == null) {
+			foreignTables = new ArrayList<Table>();
+		}
+		foreignTables.add(table);
+	}
+
 	public void setFormatName(String formatName) {
 		this.formatName = formatName;
 	}
 	
 	public String getFormatName() {
 		return formatName;
+	}
+	
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+	
+	public String getFileName() {
+		return fileName;
 	}
 	
 	public void setObject(Object object) {

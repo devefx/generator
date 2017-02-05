@@ -7,19 +7,38 @@ import org.devefx.generator.util.FreeMarkerKit;
 
 import java.sql.Types;
 import java.text.MessageFormat;
+import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class CppEntityTemplate extends AbstractTemplate<CppType> {
 
     private static final String FTL_HEADER_PATH = "template/cpp/header.ftl";
     private static final String FTL_SOURCE_PATH = "template/cpp/source.ftl";
     private static final String TABLE = "table";
+    private static final String IMPORTS = "imports";
 
     public void run(List<Table> tables, Map<Object, Object> modelMap) {
+    	modelMap.put(DATETIME, dateFormat.format(new Date()));
+    	
         for (Table table : tables) {
             modelMap.put(TABLE, table);
 
+            Set<Table> imports = new HashSet<Table>();
+            if (table.getForeignTables() != null) {
+            	for (Table tab : table.getForeignTables()) {
+    				imports.add(tab);
+    			}
+			}
+            if (table.getReferenceTables() != null) {
+            	for (Table tab : table.getReferenceTables()) {
+    				imports.add(tab);
+    			}
+			}
+            modelMap.put(IMPORTS, imports);
+            
             for (Column column : table.getColumns()) {
                 CppType type = typeMap(column);
                 column.setJavaType(type.getTypeName());
@@ -30,9 +49,9 @@ public class CppEntityTemplate extends AbstractTemplate<CppType> {
             }
 
             FreeMarkerKit.generate(MessageFormat.format("{0}/db_{1}.h", dir,
-                    table.getFormatName()), FTL_HEADER_PATH, modelMap);
+                    table.getFileName()), FTL_HEADER_PATH, modelMap);
             FreeMarkerKit.generate(MessageFormat.format("{0}/db_{1}.cpp", dir,
-                    table.getFormatName()), FTL_SOURCE_PATH, modelMap);
+                    table.getFileName()), FTL_SOURCE_PATH, modelMap);
         }
     }
 

@@ -2,6 +2,7 @@ package org.devefx.generator.template;
 
 import java.sql.Types;
 import java.text.MessageFormat;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +20,8 @@ public class JavaEntityTemplate extends AbstractTemplate<JavaType> {
 	private static final String IMPORTS = "imports";
 	
 	public void run(List<Table> tables, Map<Object, Object> modelMap) {
+		modelMap.put(DATETIME, dateFormat.format(new Date()));
+		
 		for (Table table : tables) {
 			modelMap.put(TABLE, table);
 			
@@ -35,7 +38,7 @@ public class JavaEntityTemplate extends AbstractTemplate<JavaType> {
 			modelMap.put(IMPORTS, imports);
 			
 			FreeMarkerKit.generate(MessageFormat.format("{0}/{1}.java", dir,
-					table.getFormatName()), FTL_PATH, modelMap);
+					table.getFileName()), FTL_PATH, modelMap);
 		}
 	}
 	

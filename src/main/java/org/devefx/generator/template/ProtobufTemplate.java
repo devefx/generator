@@ -1,6 +1,7 @@
 package org.devefx.generator.template;
 
 import java.sql.Types;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -14,6 +15,8 @@ public class ProtobufTemplate extends AbstractTemplate<String> {
 	private static final String TABLES = "tables";
 	
 	public void run(List<Table> tables, Map<Object, Object> modelMap) {
+		modelMap.put(DATETIME, dateFormat.format(new Date()));
+		
 		for (Table table : tables) {
 			for (Column column : table.getColumns()) {
 				column.setJavaType(typeMap(column));
