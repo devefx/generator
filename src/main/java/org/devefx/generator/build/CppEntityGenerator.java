@@ -41,9 +41,9 @@ public class CppEntityGenerator {
             @Override
             public String mapping(String inputName) {
                 if (inputName.startsWith("t01")) {
-                    return "data_" + mapping.mapping(inputName);
+                    return "tpl_" + mapping.mapping(inputName);
                 }
-                return "game_" + mapping.mapping(inputName);
+                return "usr_" + mapping.mapping(inputName);
             }
 		});
         // 设置表过滤器

@@ -8,48 +8,36 @@
 </#if>
 namespace db_<#if table.name?starts_with("t01")>data<#elseif table.name?starts_with("t02")>game</#if>
 {
-${table.formatName}::${table.formatName}()
+REFLECT_IMPLEMENT_CLASS_EXTENDS(db_<#if table.name?starts_with("t01")>data<#elseif table.name?starts_with("t02")>game</#if>::${table.formatName}, reflect::Object)
+
+<#if (table.referenceTables?? && table.referenceTables?size > 0)>
+${table.formatName}::~${table.formatName}()
 {
-<#list table.columns as column>
-    register_setter<${column.commonType}>("${column.name}", CALLBACK_1(${table.formatName}::set_${column.name}, this));
+<#list table.referenceTables as tab>
+	SAFE_DELETE(_${firstToLower(tab.formatName)});
 </#list>
 }
-
-<#list table.columns as column>
-${column.javaType} ${table.formatName}::${column.name}() const
-{
-    return ${column.name}_;
-}
-void ${table.formatName}::set_${column.name}(${column.javaType} value)
-{
-	if (${column.name}_ != value)
-	{
-		_modified["${column.name}"] = any<${column.commonType}>(value);
-	}
-    ${column.name}_ = value;
-}
-
-</#list>
+</#if>
 <#if (table.foreignTables?? && table.foreignTables?size > 0)>
 <#list table.foreignTables as tab>
 int ${table.formatName}::${firstToLower(tab.formatName)}_size() const
 {
-	return ${firstToLower(tab.formatName)}Array_.size();
+	return _${firstToLower(tab.formatName)}Array.size();
 }
 void ${table.formatName}::clear_${firstToLower(tab.formatName)}()
 {
-	for(auto element : ${firstToLower(tab.formatName)}Array_)
+	for(auto element : _${firstToLower(tab.formatName)}Array)
 		delete element;
-	${firstToLower(tab.formatName)}Array_.clear();
+	_${firstToLower(tab.formatName)}Array.clear();
 }
 const ${tab.formatName}& ${table.formatName}::get_${firstToLower(tab.formatName)}(int index) const
 {
-	return *(${firstToLower(tab.formatName)}Array_[index]);
+	return *(_${firstToLower(tab.formatName)}Array[index]);
 }
 ${tab.formatName}* ${table.formatName}::add_${firstToLower(tab.formatName)}()
 {
 	${tab.formatName}* result = new ${tab.formatName}();
-	${firstToLower(tab.formatName)}Array_.push_back(result);
+	_${firstToLower(tab.formatName)}Array.push_back(result);
 	return result;
 }
 
@@ -59,11 +47,11 @@ ${tab.formatName}* ${table.formatName}::add_${firstToLower(tab.formatName)}()
 <#list table.referenceTables as tab>
 ${tab.formatName}* ${table.formatName}::get_${firstToLower(tab.formatName)}() const
 {
-	return ${firstToLower(tab.formatName)}_;
+	return _${firstToLower(tab.formatName)};
 }
 void ${table.formatName}::set_${firstToLower(tab.formatName)}(${tab.formatName}* value)
 {
-	${firstToLower(tab.formatName)}_ = value;
+	_${firstToLower(tab.formatName)} = value;
 }
 </#list>
 </#if>

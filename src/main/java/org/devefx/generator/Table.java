@@ -13,6 +13,8 @@ public class Table {
 
 	private List<Column> columns;
 	
+	private Column primaryKey;
+	
 	private List<Table> referenceTables;
 	
 	private List<Table> foreignTables;
@@ -57,6 +59,14 @@ public class Table {
 			columns = new ArrayList<Column>();
 		}
 		columns.add(column);
+	}
+	
+	public Column getPrimaryKey() {
+		return primaryKey;
+	}
+	
+	public void setPrimaryKey(Column primaryKey) {
+		this.primaryKey = primaryKey;
 	}
 	
 	public List<Table> getReferenceTables() {

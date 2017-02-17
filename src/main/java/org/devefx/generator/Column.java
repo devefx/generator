@@ -10,6 +10,8 @@ public class Column {
 	
 	private String javaType;
 
+	private String commonType;
+	
 	private String comment;
 	
 	private boolean isKey;
@@ -50,6 +52,14 @@ public class Column {
 	
 	public void setJavaType(String javaType) {
 		this.javaType = javaType;
+	}
+	
+	public String getCommonType() {
+		return commonType;
+	}
+	
+	public void setCommonType(String commonType) {
+		this.commonType = commonType;
 	}
 
 	public String getComment() {

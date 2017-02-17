@@ -2,12 +2,7 @@
 #ifndef GENERATOR_${table.formatName?upper_case}_ENTITY__INCLUDED
 #define GENERATOR_${table.formatName?upper_case}_ENTITY__INCLUDED
 
-#include <reflect/Object.h>
-#include <string>
-<#if (table.foreignTables?? && table.foreignTables?size > 0)>
-#include <vector>
-#include <new>
-</#if>
+#include "reflect/Object.h"
 
 namespace db_<#if table.name?starts_with("t01")>data<#elseif table.name?starts_with("t02")>game</#if>
 {
@@ -18,16 +13,17 @@ class ${tab.formatName};
 </#list>
 </#if>
 
-class ${table.formatName} : public toolkit::Object
+class ${table.formatName} : public reflect::Object
 {
-public:
-	${table.formatName}();
+REFLECT_DECLARE_CLASS(${table.formatName})
 
 <#list table.columns as column>
-    ${column.javaType} ${column.name}() const;
-    void set_${column.name}(${column.javaType} value);
-
+	REFLECT_PROPERTY(${column.javaType}, ${column.name})
 </#list>
+public:
+<#if (table.referenceTables?? && table.referenceTables?size > 0)>
+	virtual~${table.formatName}();
+</#if>
 <#if (table.foreignTables?? && table.foreignTables?size > 0)>
 <#list table.foreignTables as tab>
 	int ${firstToLower(tab.formatName)}_size() const;
@@ -43,18 +39,15 @@ public:
 	void set_${firstToLower(tab.formatName)}(${tab.formatName}* value);
 </#list>
 </#if>
-private:
-<#list table.columns as column>
-    ${column.tag} ${column.name}_;
-</#list>
+protected:
 <#if (table.foreignTables?? && table.foreignTables?size > 0)>
 <#list table.foreignTables as tab>
-	std::vector<${tab.formatName}*> ${firstToLower(tab.formatName)}Array_;
+	std::vector<${tab.formatName}*> _${firstToLower(tab.formatName)}Array;
 </#list>
 </#if>
 <#if (table.referenceTables?? && table.referenceTables?size > 0)>
 <#list table.referenceTables as tab>
-	${tab.formatName}* ${firstToLower(tab.formatName)}_;
+	${tab.formatName}* _${firstToLower(tab.formatName)};
 </#list>
 </#if>
 };

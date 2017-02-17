@@ -137,6 +137,7 @@ public class StandardSqlExecutor implements SqlExecutor {
 					column.setName(name);
 					if (name.equals(keyName)) {
 						column.setKey(true);
+						table.setPrimaryKey(column);
 					}
 					if (namedMapping != null) {
 						name = namedMapping.mapping(name);
