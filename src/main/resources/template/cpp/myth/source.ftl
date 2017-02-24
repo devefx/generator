@@ -13,8 +13,8 @@ REFLECT_IMPLEMENT_CLASS_EXTENDS(db_<#if table.name?starts_with("t01")>data<#else
 <#if (table.referenceTables?? && table.referenceTables?size > 0)>
 ${table.formatName}::~${table.formatName}()
 {
-<#list table.referenceTables as tab>
-	SAFE_DELETE(_${firstToLower(tab.formatName)});
+<#list table.referenceTables?keys as key>
+	SAFE_DELETE(_${key});
 </#list>
 }
 </#if>
@@ -44,14 +44,14 @@ ${tab.formatName}* ${table.formatName}::add_${firstToLower(tab.formatName)}()
 </#list>
 </#if>
 <#if (table.referenceTables?? && table.referenceTables?size > 0)>
-<#list table.referenceTables as tab>
-${tab.formatName}* ${table.formatName}::get_${firstToLower(tab.formatName)}() const
+<#list table.referenceTables?keys as key>
+${table.referenceTables[key].formatName}* ${table.formatName}::get_${key}() const
 {
-	return _${firstToLower(tab.formatName)};
+	return _${key};
 }
-void ${table.formatName}::set_${firstToLower(tab.formatName)}(${tab.formatName}* value)
+void ${table.formatName}::set_${key}(${table.referenceTables[key].formatName}* value)
 {
-	_${firstToLower(tab.formatName)} = value;
+	_${key} = value;
 }
 </#list>
 </#if>

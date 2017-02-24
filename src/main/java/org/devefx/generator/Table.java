@@ -1,7 +1,9 @@
 package org.devefx.generator;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Table {
 
@@ -15,7 +17,7 @@ public class Table {
 	
 	private Column primaryKey;
 	
-	private List<Table> referenceTables;
+	private Map<String, Table> referenceTables;
 	
 	private List<Table> foreignTables;
 	
@@ -69,19 +71,19 @@ public class Table {
 		this.primaryKey = primaryKey;
 	}
 	
-	public List<Table> getReferenceTables() {
+	public Map<String, Table> getReferenceTables() {
 		return referenceTables;
 	}
 	
-	public void setReferenceTables(List<Table> referenceTables) {
+	public void setReferenceTables(Map<String, Table> referenceTables) {
 		this.referenceTables = referenceTables;
 	}
 	
-	public void addReferenceTable(Table table) {
+	public void addReferenceTable(String name, Table table) {
 		if (referenceTables == null) {
-			referenceTables = new ArrayList<Table>();
+			referenceTables = new HashMap<>();
 		}
-		referenceTables.add(table);
+		referenceTables.put(name, table);
 	}
 	
 	public List<Table> getForeignTables() {

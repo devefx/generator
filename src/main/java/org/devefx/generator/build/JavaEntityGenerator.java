@@ -16,9 +16,9 @@ public class JavaEntityGenerator {
 	public static void main(String[] args) throws Exception {
 		// jdbc连接配置
 		JdbcConfig config = new JdbcConfig();
-		config.setUrl("jdbc:mysql://localhost:3306/myth-db");
-		config.setUsername("root");
-		config.setPassword("sql8092");
+		config.setUrl("jdbc:mysql://192.168.3.6:3306/hospital");
+		config.setUsername("baichou");
+		config.setPassword("xmts@sla_kxb_337");
 		// 创建一个生成器
 		Generator gen = new Generator();
 		gen.setJdbcConfig(config);
@@ -26,17 +26,14 @@ public class JavaEntityGenerator {
 		gen.setSqlExecutor(new StandardSqlExecutor());
 		// 添加一个java实体类生成模板
 		JavaEntityTemplate javaEntityTemplate = new JavaEntityTemplate();
-		javaEntityTemplate.setOutDir("F:/Workspaces/20160920/generator/src/test/java/org/devefx/model");
+		javaEntityTemplate.setOutDir("F:/Users/yueyouqian/Documents/Projects/java");
 		gen.addTemplate(javaEntityTemplate);
 		// 设置自定义表名称映射
 		gen.setTableNamedMapping(new NamedMapping() {
-			NamedMapping mapping = new RegexpCaseNamedMapping("t[0-9]{2}_([a-z_]+)", "_$1");
+			NamedMapping mapping = new RegexpCaseNamedMapping("t_([a-z_]+)", "_$1");
 			@Override
 			public String mapping(String inputName) {
-				if (inputName.startsWith("t01")) {
-					return "Data" + mapping.mapping(inputName);
-				}
-				return "Game" + mapping.mapping(inputName);
+				return mapping.mapping(inputName);
 			}
 		});
 		// 设置表过滤器

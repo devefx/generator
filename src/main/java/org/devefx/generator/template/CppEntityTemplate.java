@@ -40,8 +40,8 @@ public class CppEntityTemplate extends AbstractTemplate<CppType> {
     			}
 			}
             if (table.getReferenceTables() != null) {
-            	for (Table tab : table.getReferenceTables()) {
-    				imports.add(tab);
+            	for (Map.Entry<String, Table> ref : table.getReferenceTables().entrySet()) {
+    				imports.add(ref.getValue());
     			}
 			}
             modelMap.put(IMPORTS, imports);

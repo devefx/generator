@@ -39,6 +39,18 @@ public class JavaEntityTemplate extends AbstractTemplate<JavaType> {
 			
 			FreeMarkerKit.generate(MessageFormat.format("{0}/{1}.java", dir,
 					table.getFileName()), FTL_PATH, modelMap);
+			
+			FreeMarkerKit.generate(MessageFormat.format("{0}/mapper/{1}Mapper.xml", dir,
+					table.getFileName()), "template/mybatis/mapper-xml.ftl", modelMap);
+			
+			FreeMarkerKit.generate(MessageFormat.format("{0}/dao/{1}Mapper.java", dir,
+					table.getFileName()), "template/mybatis/mapper-java.ftl", modelMap);
+			
+			FreeMarkerKit.generate(MessageFormat.format("{0}/service/{1}Service.java", dir,
+					table.getFileName()), "template/mybatis/mapper-service.ftl", modelMap);
+			
+			FreeMarkerKit.generate(MessageFormat.format("{0}/service/impl/{1}ServiceImpl.java", dir,
+					table.getFileName()), "template/mybatis/mapper-service-impl.ftl", modelMap);
 		}
 	}
 	
