@@ -1,12 +1,12 @@
-package ${mapper_package};
+package ${service_package};
 
 import ${java_package}.${table.formatName};
 
 /**
- * ${table.formatName}Mapper
+ * ${table.formatName}Service
  * @date ${datetime}
  */
-public interface ${table.formatName}Mapper {
+public interface ${table.formatName}Service {
 
 	${table.formatName} select${table.formatName}(${table.primaryKey.javaType} id);
 	

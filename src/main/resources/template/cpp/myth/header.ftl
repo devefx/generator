@@ -34,9 +34,9 @@ public:
 </#list>
 </#if>
 <#if (table.referenceTables?? && table.referenceTables?size > 0)>
-<#list table.referenceTables as tab>
-	${tab.formatName}* get_${firstToLower(tab.formatName)}() const;
-	void set_${firstToLower(tab.formatName)}(${tab.formatName}* value);
+<#list table.referenceTables?keys as key>
+	${table.referenceTables[key].formatName}* get_${key}() const;
+	void set_${key}(${table.referenceTables[key].formatName}* value);
 </#list>
 </#if>
 protected:
@@ -46,8 +46,8 @@ protected:
 </#list>
 </#if>
 <#if (table.referenceTables?? && table.referenceTables?size > 0)>
-<#list table.referenceTables as tab>
-	${tab.formatName}* _${firstToLower(tab.formatName)};
+<#list table.referenceTables?keys as key>
+	${table.referenceTables[key].formatName}* _${key};
 </#list>
 </#if>
 };

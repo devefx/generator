@@ -99,9 +99,10 @@ public class StandardSqlExecutor implements SqlExecutor {
 						null, table.getName());
 				while (resultSet.next()) {
 					String name = resultSet.getString("PKTABLE_NAME");
+					String column = resultSet.getString("FKCOLUMN_NAME");
 					for (Table tab : tables) {
 						if (name.equals(tab.getName())) {
-							table.addReferenceTable(tab);
+							table.addReferenceTable(column.replaceAll("_id", ""), tab);
 							break;
 						}
 					}

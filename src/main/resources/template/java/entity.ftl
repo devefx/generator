@@ -17,7 +17,7 @@ import java.util.ArrayList;
  * ${table.comment}
  * @date ${datetime}
  */
-class ${table.formatName} {
+public class ${table.formatName} {
 
 	<#list table.columns as column>
 	private ${column.javaType} ${column.formatName};${placeholder(column.javaType+column.formatName, 25)} // ${column.comment}
@@ -30,8 +30,8 @@ class ${table.formatName} {
 	</#if>
     <#if (table.referenceTables?? && table.referenceTables?size > 0)>
 	
-	<#list table.referenceTables as tab>
-	private ${tab.formatName} ${firstToLower(tab.formatName)};${placeholder(tab.formatName + tab.formatName, 25)} // ${tab.comment}
+	<#list table.referenceTables?keys as key>
+	private ${table.referenceTables[key]} ${key};${placeholder(table.referenceTables[key] + key, 25)} // ${tab.comment}
 	</#list>
 	</#if>
 	
@@ -71,21 +71,21 @@ class ${table.formatName} {
 	</#list>
 	</#if>
 	<#if (table.referenceTables?? && table.referenceTables?size > 0)>
-	<#list table.referenceTables as tab>
+	<#list table.referenceTables?keys as key>
     /**
 	 * 设置${tab.comment}
 	 * @param ${tab.formatName}
 	 */
-	public void set${tab.formatName}(${tab.formatName} ${firstToLower(tab.formatName)}) {
-        this.${firstToLower(tab.formatName)} = ${firstToLower(tab.formatName)};
+	public void set${firstToUpper(key)}(${table.referenceTables[key].formatName} ${key}) {
+        this.${key} = ${key};
 	}
 	
     /**
 	 * 获取${tab.comment}
 	 * @return
 	 */
-	public ${tab.formatName} get${tab.formatName}() {
-		return ${firstToLower(tab.formatName)};
+	public ${table.referenceTables[key].formatName} get${firstToUpper(key)}() {
+		return ${key};
 	}
 	
 	</#list>
