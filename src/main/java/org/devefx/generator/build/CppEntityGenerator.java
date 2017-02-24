@@ -16,7 +16,7 @@ public class CppEntityGenerator {
     public static void main(String[] args) throws Exception  {
         // jdbc连接配置
         JdbcConfig config = new JdbcConfig();
-        config.setUrl("jdbc:mysql://localhost:3306/myth-db");
+        config.setUrl("jdbc:mysql://localhost:3306/myth");
         config.setUsername("root");
         config.setPassword("sql8092");
         // 创建一个生成器
@@ -26,7 +26,7 @@ public class CppEntityGenerator {
         gen.setSqlExecutor(new StandardSqlExecutor());
         // 添加一个java实体类生成模板
         CppEntityTemplate cppEntityTemplate = new CppEntityTemplate();
-        cppEntityTemplate.setOutDir("F:/Users/yueyouqian/Documents/Projects/cpp");
+        cppEntityTemplate.setOutDir("/Users/yueyouqian/Documents/Projects/cpp");
         gen.addTemplate(cppEntityTemplate);
         // 设置自定义表名称映射
         gen.setTableNamedMapping(new NamedMapping() {
