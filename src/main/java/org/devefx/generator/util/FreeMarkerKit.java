@@ -202,6 +202,19 @@ public class FreeMarkerKit {
 				return "";
 			}
 		});
+		dataModel.put("trim", new TemplateMethodModelEx() {
+			@Override
+			public Object exec(List args) throws TemplateModelException {
+				if (args == null || args.size() < 1) {
+					throw new TemplateModelException("Parameter is less than 1");
+				}
+				if (args.get(0) != null) {
+					String text = args.get(0).toString();
+					return text.replaceAll("\r|\n", "");
+				}
+				return "";
+			}
+		});
 	}
 	
 }

@@ -31,7 +31,7 @@
   </insert>
   
   <update id="update${table.formatName}" parameterType="${table.formatName}">
-    update from ${table.name} set
+    update ${table.name} set
     <#list table.columns as column><#if !column.isKey()><#if flag?? && flag == 2>, </#if>${column.name + r"=#{" + column.formatName + "}"}<#assign flag=2/></#if></#list>
     where ${table.primaryKey.name} = ${r"#{" + table.primaryKey.formatName + "}"}
   </update>
